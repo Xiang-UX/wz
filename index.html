@@ -5,68 +5,78 @@
     <meta charset="utf-8">
     <title>巷的查王者低分战区</title>
     <style>
-        div {
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        div.txet {
             text-align: center;
+            font-size: 15px;
+            font-weight: bold;
+            margin-top: 20px;
+            background-image: linear-gradient(to right, rgb(255, 150, 150), rgb(100, 100, 255));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
         }
 
-        .txet {
-            text-align: center;
-            color: #03e7fcca;
-        }
-
-        tr {
-            height: 40px;
-        }
-
-        td {
-            width: 190px;
-        }
-
-        select {
-            border: none;
-            background-color: #f6f6f6;
+        div#yy {
+            margin: 20px auto;
             padding: 10px;
-            font-size: 16px;
-            color: #333;
-            border-radius: 5px;
-            appearance: none;
-            -webkit-appearance: none;
-            -moz-appearance: none;
-            box-shadow: none;
-            outline: none;
+            border: 1px solid #ccc;
+            width: 400px;
         }
 
-        /* 鼠标悬停样式 */
-        select:hover {
-            background-color: #e0e0e0;
+        div#yy label {
+            display: inline-block;
+            width: 80px;
+            text-align: right;
+            margin-right: 10px;
         }
 
-        /* 选中选项样式 */
-        select option:checked {
-            background-color: #6a5acd;
-            color: #fff;
+        div#yy select {
+            width: 200px;
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            margin-bottom: 10px;
         }
 
-        button {
-            background-color: #38d;
-            color: #fff;
+        div#yy button {
+            background-color: #4CAF50;
+            color: white;
             padding: 10px 20px;
             border: none;
-            border-radius: 5px;
-            font-size: 16px;
+            border-radius: 3px;
             cursor: pointer;
+            display: block;
+            margin: 0 auto;
         }
 
-        /* 鼠标悬停样式 */
-        button:hover {
-            background-color: #307ecc;
+        div#yy table {
+            margin-top: 20px;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        div#yy table td {
+            padding: 10px;
+            border: 1px solid #ccc;
+        }
+
+        div#yy table td:first-child {
+            font-weight: bold;
+            width: 120px;
+            background-color: #f2f2f2;
         }
     </style>
 </head>
 
 <body>
     <div class="txet">
-        简单明了祝召唤师，排位连胜
+        祝召唤师，排位连胜
     </div>
     <div id="yy">
         <label for="hero">英雄名称:</label>
