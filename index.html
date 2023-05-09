@@ -5,78 +5,68 @@
     <meta charset="utf-8">
     <title>巷的查王者低分战区</title>
     <style>
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: Arial, sans-serif;
-        }
-
-        div.txet {
+        div {
             text-align: center;
-            font-size: 15px;
-            font-weight: bold;
-            margin-top: 20px;
-            background-image: linear-gradient(to right, rgb(255, 150, 150), rgb(100, 100, 255));
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
         }
 
-        div#yy {
-            margin: 20px auto;
+        .txet {
+            text-align: center;
+            color: #03e7fcca;
+        }
+
+        tr {
+            height: 40px;
+        }
+
+        td {
+            width: 190px;
+        }
+
+        select {
+            border: none;
+            background-color: #f6f6f6;
             padding: 10px;
-            border: 1px solid #ccc;
-            width: 400px;
+            font-size: 16px;
+            color: #333;
+            border-radius: 5px;
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            box-shadow: none;
+            outline: none;
         }
 
-        div#yy label {
-            display: inline-block;
-            width: 80px;
-            text-align: right;
-            margin-right: 10px;
+        /* 鼠标悬停样式 */
+        select:hover {
+            background-color: #e0e0e0;
         }
 
-        div#yy select {
-            width: 200px;
-            padding: 5px;
-            border: 1px solid #ccc;
-            border-radius: 3px;
-            margin-bottom: 10px;
+        /* 选中选项样式 */
+        select option:checked {
+            background-color: #6a5acd;
+            color: #fff;
         }
 
-        div#yy button {
-            background-color: #4CAF50;
-            color: white;
+        button {
+            background-color: #38d;
+            color: #fff;
             padding: 10px 20px;
             border: none;
-            border-radius: 3px;
+            border-radius: 5px;
+            font-size: 16px;
             cursor: pointer;
-            display: block;
-            margin: 0 auto;
         }
 
-        div#yy table {
-            margin-top: 20px;
-            border-collapse: collapse;
-            width: 100%;
-        }
-
-        div#yy table td {
-            padding: 10px;
-            border: 1px solid #ccc;
-        }
-
-        div#yy table td:first-child {
-            font-weight: bold;
-            width: 120px;
-            background-color: #f2f2f2;
+        /* 鼠标悬停样式 */
+        button:hover {
+            background-color: #307ecc;
         }
     </style>
 </head>
 
 <body>
     <div class="txet">
-        祝召唤师，排位连胜
+        简单明了祝召唤师，排位连胜
     </div>
     <div id="yy">
         <label for="hero">英雄名称:</label>
@@ -160,8 +150,24 @@
 
         // 用一个数组存储英雄名称选项
         const heroes = ["廉颇", "小乔", "赵云", "墨子", "妲己",
-
-        ];
+            "嬴政", "孙尚香", "鲁班七号", "庄周", "刘禅", "高渐离",
+            "阿轲", "钟无艳", "孙膑", "扁鹊", "白起", "芈月", "吕布",
+            "周瑜", "夏侯惇", "甄姬", "曹操", "典韦", "宫本武藏",
+            "李白", "马可波罗", "狄仁杰", "达摩", "项羽", "武则天",
+            "老夫子", "关羽", "貂蝉", "安琪拉", "程咬金", "露娜",
+            "姜子牙", "刘邦", "韩信", "王昭君", "兰陵王", "花木兰",
+            "张良", "不知火舞", "娜可露露", "橘右京", "亚瑟", "孙悟空",
+            "牛魔", "后羿", "刘备", "张飞", "李元芳", "虞姬", "钟馗",
+            "成吉思汗", "杨戬", "雅典娜", "蔡文姬", "太乙真人", "哪吒",
+            "诸葛亮", "黄忠", "大乔", "东皇太一", "干将莫邪", "鬼谷子",
+            "铠", "百里守约", "百里玄策", "苏烈", "梦奇", "女娲",
+            "明世隐", "公孙离", "杨玉环", "裴擒虎", "弈星", "狂铁",
+            "米莱狄", "元歌", "孙策", "司马懿", "盾山", "伽罗",
+            "沈梦溪", "李信", "上官婉儿", "嫦娥", "猪八戒", "盘古",
+            "瑶", "云中君", "曜", "马超", "西施", "鲁班大师",
+            "蒙犽", "镜", "蒙恬", "阿古朵", "夏洛特", "澜",
+            "司空震", "艾琳", "云缨", "金蝉", "暃", "桑启",
+            "戈娅", "海月", "赵怀真", "莱西奥", "姬小满" /* 其他英雄名称 */];
 
         // 获取select元素
         const heroSelect = document.getElementById("hero");
@@ -225,7 +231,7 @@
                     console.log('省标-金标');
                     console.log(province);
                     console.log(provincePower);
-                    document.getElementById('provincePower').innerText = province + '；最低分:' + provincePower;
+                    document.getElementById('provincePower').innerText = province + '；最低分' + provincePower;
                     console.log('国标');
                     console.log(guobiao);
                     document.getElementById('guobiao').innerText = guobiao;
