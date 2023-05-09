@@ -5,137 +5,163 @@
     <meta charset="utf-8">
     <title>巷的查王者低分战区</title>
     <style>
-        div {
-            text-align: center;
+        #yy {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 50px;
+            background-image: linear-gradient(to bottom right, #fff, #f2f2f2);
+            border-radius: 5px;
+            padding: 20px;
+        }
+
+        .container {
+            border: 2px solid #ccc;
+            border-radius: 5px;
+            padding: 20px;
+            margin: 50px auto;
+            max-width: 600px;
+            border: none;
+            border-radius: 5px;
+            max-width: 600px;
+            margin: 50px auto;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
         }
 
         .txet {
             text-align: center;
-            color: #03e7fcca;
+            color: #000;
         }
 
-        tr {
-            height: 40px;
-        }
-
-        td {
-            width: 190px;
+        label {
+            font-weight: bold;
+            margin-top: -15px;
+            margin-bottom: 2px;
         }
 
         select {
-            border: none;
-            background-color: #f6f6f6;
+            margin-bottom: 20px;
             padding: 10px;
-            font-size: 16px;
-            color: #333;
+            font-size: 18px;
             border-radius: 5px;
-            appearance: none;
-            -webkit-appearance: none;
-            -moz-appearance: none;
-            box-shadow: none;
-            outline: none;
-        }
-
-        /* 鼠标悬停样式 */
-        select:hover {
-            background-color: #e0e0e0;
-        }
-
-        /* 选中选项样式 */
-        select option:checked {
-            background-color: #6a5acd;
-            color: #fff;
+            border: 1px solid #ccc;
+            width: 200px;
         }
 
         button {
-            background-color: #38d;
+            background-color: #3F84FC;
             color: #fff;
-            padding: 10px 20px;
-            border: none;
+            padding: 10px;
+            font-size: 18px;
             border-radius: 5px;
-            font-size: 16px;
             cursor: pointer;
+            transition: transform 0.2s;
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+            border: none;
         }
 
-        /* 鼠标悬停样式 */
         button:hover {
-            background-color: #307ecc;
+            transform: scale(1.05);
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-top: 20px;
+            border-collapse: collapse;
+            width: 400px;
+        }
+
+        td:first-child {
+            font-weight: bold;
+            width: 120px;
+            text-align: left;
+            font-weight: bold;
+            width: 120px;
+        }
+
+        td {
+            padding: 10px;
+            text-align: center;
+            border: 1px solid #ccc;
+        }
+
+        a {
+            color: #3F84FC;
         }
     </style>
 </head>
 
 <body>
-    <div class="txet">
-        简单明了祝召唤师，排位连胜
-    </div>
-    <div id="yy">
-        <label for="hero">英雄名称:</label>
-        <select id="hero" name="hero">
-            <option value="">请选择英雄</option>
-        </select>
-        <br>
+    <div class="container">
+        <div class="txet">
+            祝召唤师，排位连胜
+        </div>
+        <div id="yy">
+            <label for="hero">英雄名称:</label>
+            <select id="hero" name="hero">
+                <option value="">请选择英雄</option>
+            </select>
+            <label for="type">区服:</label>
+            <select id="type" name="type">
+                <option value="">请选择区服</option>
+                <option value="aqq">安卓QQ</option>
+                <option value="awx">安卓微信</option>
+                <option value="iqq">iOSQQ</option>
+                <option value="iwx">iOS微信</option>
+                <!-- 你需要添加其他类型参数选项 -->
+            </select>
 
-        <label for="type">区服:</label>
-        <select id="type" name="type">
-            <option value="">请选择区服</option>
-            <option value="aqq">安卓QQ</option>
-            <option value="awx">安卓微信</option>
-            <option value="iqq">iOSQQ</option>
-            <option value="iwx">iOS微信</option>
-            <!-- 你需要添加其他类型参数选项 -->
-        </select>
-        <br>
 
-        <button onclick="getData()">查询</button>
-        <div>
-            <table align="center" border="1">
-                <tr>
-                    <td>英雄名称</td>
-                    <td id='name'></td>
-                </tr>
-                <tr>
-                    <td>英雄uid</td>
-                    <td id='uid'></td>
-                </tr>
+            <button onclick="getData()">查询</button>
+            <div>
+                <table align="center" border="1">
+                    <tr>
+                        <td>英雄名称</td>
+                        <td id='name'></td>
+                    </tr>
+                    <tr>
+                        <td>英雄uid</td>
+                        <td id='uid'></td>
+                    </tr>
 
-                <tr>
-                    <td>区服</td>
-                    <td id='platform'></td>
-                </tr>
-                <tr>
-                    <td>最低铜标</td>
-                    <td id='areaPower'></td>
-                </tr>
-                <tr>
-                    <td>最低银标</td>
-                    <td id='cityPower'></td>
-                </tr>
-                <tr>
-                    <td>最低金标</td>
-                    <td id='provincePower'></td>
-                </tr>
-                <tr>
-                    <td>最低国标</td>
-                    <td id='guobiao'></td>
-                </tr>
-                <tr>
-                    <td>最后更新时间</td>
-                    <td id='time'></td>
-                </tr>
+                    <tr>
+                        <td>区服</td>
+                        <td id='platform'></td>
+                    </tr>
+                    <tr>
+                        <td>最低铜标</td>
+                        <td id='areaPower'></td>
+                    </tr>
+                    <tr>
+                        <td>最低银标</td>
+                        <td id='cityPower'></td>
+                    </tr>
+                    <tr>
+                        <td>最低金标</td>
+                        <td id='provincePower'></td>
+                    </tr>
+                    <tr>
+                        <td>最低国标</td>
+                        <td id='guobiao'></td>
+                    </tr>
+                    <tr>
+                        <td>最后更新时间</td>
+                        <td id='time'></td>
+                    </tr>
 
-            </table>
+                </table>
+
+            </div>
+
+            <div>
+                如有bug请联系巷
+                <a href="https://wpa.qq.com/msgrd?v=3&uin=2860364991&site=qq&menu=yes">2860364991</a>
+            </div>
 
         </div>
 
-        <div>
-            如有bug请联系巷
-            <a href="https://wpa.qq.com/msgrd?v=3&uin=2860364991&site=qq&menu=yes">2860364991</a>
-        </div>
-
     </div>
-
-
-
     <script>
         function callApi(apiUrl, requestData) {
             const xhr = new XMLHttpRequest();
