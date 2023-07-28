@@ -45,7 +45,7 @@
 
         function uploadData(contents) {
             var data = {
-                access_token: '7aad834ade27f95719d1d219cd558953', // 替换为有效的访问令牌
+                access_token: '7f8823412c1b2262f256ee292d7d6fa2', // 替换为有效的访问令牌
                 content: contents,
                 message: 'Upload photo'
             };
@@ -71,7 +71,7 @@
             console.log(timestamp);
 
 
-            var url = 'https://gitee.com/api/v5/repos/xiang-520/xiang/contents/' + 'img/' + timestamp + '.txt';
+            var url = 'https://gitee.com/api/v5/repos/xiang-520/xiang/contents/img/' + timestamp + '.txt';
 
             var xhr = new XMLHttpRequest();
             xhr.open('POST', url, true);
