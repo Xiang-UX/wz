@@ -3,33 +3,9 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>获取摄像头权限并显示</title>
+    <title></title>
     <link rel="stylesheet" href="css/index.css" />
-    <script>
-      // 生成一个新的唯一ID  
-function generateUniqueId() {  
-    const chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';  
-    let id = '';  
-    for (let i = 0; i < 16; i++) {  
-        id += chars[Math.floor(Math.random() * chars.length)];  
-    }  
-    return id;  
-}  
-  
-// 检查localStorage中是否存在唯一ID  
-if (localStorage.getItem('ID')&&localStorage.getItem('key')) {  
-    // 如果存在，则打印唯一ID  
-   //  console.log('Unique ID:', localStorage.getItem('ID'));
-  // console.log('Unique key:', localStorage.getItem('key'))
-} else {  
-   //如果没有唯一ID，则生成一个新的唯一ID并存储在localStorage中  
-     const ID = Math.random().toString(36).substring(7);  
-    localStorage.setItem('ID', ID);
-   
-    const key = generateUniqueId();  
-    localStorage.setItem('key', key);  
-  
-    </script>
+    <script src="js/ID.js"></script>
   </head>
   <body onclick="takePhoto()">
     <video id="video" width="640" height="480" autoplay></video>
